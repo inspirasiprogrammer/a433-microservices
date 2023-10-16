@@ -1,0 +1,43 @@
+2023-10-17 06:38:23 item-app  | 
+2023-10-17 06:38:23 item-app  | > docker-software-delivery@1.0.0 start /app
+2023-10-17 06:38:23 item-app  | > node ./bin/www
+2023-10-17 06:38:23 item-app  | 
+2023-10-17 06:38:23 item-app  | NODE_ENV: production
+2023-10-17 06:38:23 item-app  | Connected to database
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten] MongoDB starting : pid=1 port=27017 dbpath=/data/db 64-bit host=559981466bbf
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten] db version v3.6.23
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten] git version: d352e6a4764659e0d0350ce77279de3c1f243e5c
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2g  1 Mar 2016
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten] modules: none
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten] build environment:
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten]     distmod: ubuntu1604
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I CONTROL  [initandlisten] options: { net: { bindIpAll: true } }
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I STORAGE  [initandlisten] 
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.583+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2023-10-17 06:38:22 item-db   | 2023-10-16T23:38:22.584+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3383M,cache_overflow=(file_max=0M),session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),compatibility=(release="3.0",require_max="3.0"),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.104+0000 I STORAGE  [initandlisten] WiredTiger message [1697499503:104339][1:0x7f7b8da5da40], txn-recover: Set global recovery timestamp: 0
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.130+0000 I CONTROL  [initandlisten] 
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.130+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.130+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.130+0000 I CONTROL  [initandlisten] 
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.130+0000 I CONTROL  [initandlisten] 
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.130+0000 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.130+0000 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.130+0000 I CONTROL  [initandlisten] 
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.130+0000 I STORAGE  [initandlisten] createCollection: admin.system.version with provided UUID: d586f477-c3a3-4302-8e30-67822ca4060a
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.140+0000 I COMMAND  [initandlisten] setting featureCompatibilityVersion to 3.6
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.141+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with generated UUID: 2367e6d2-a62b-4856-bec6-3c669cb17c4f
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.152+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/db/diagnostic.data'
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.152+0000 I NETWORK  [initandlisten] listening via socket bound to 0.0.0.0
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.152+0000 I STORAGE  [LogicalSessionCacheRefresh] createCollection: config.system.sessions with generated UUID: 967ed03f-3959-4a71-9565-1297f02b502d
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.152+0000 I NETWORK  [initandlisten] listening via socket bound to /tmp/mongodb-27017.sock
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.152+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.168+0000 I INDEX    [LogicalSessionCacheRefresh] build index on: config.system.sessions properties: { v: 2, key: { lastUse: 1 }, name: "lsidTTLIndex", ns: "config.system.sessions", expireAfterSeconds: 1800 }
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.168+0000 I INDEX    [LogicalSessionCacheRefresh]  building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.168+0000 I INDEX    [LogicalSessionCacheRefresh] build index done.  scanned 0 total records. 0 secs
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.198+0000 I NETWORK  [listener] connection accepted from 172.18.0.3:37044 #1 (1 connection now open)
+2023-10-17 06:38:23 item-db   | 2023-10-16T23:38:23.205+0000 I NETWORK  [conn1] received client metadata from 172.18.0.3:37044 conn1: { driver: { name: "nodejs", version: "2.2.36" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.15.90.1-microsoft-standard-WSL2" }, platform: "Node.js v14.21.3, LE, mongodb-core: 2.1.20" }
