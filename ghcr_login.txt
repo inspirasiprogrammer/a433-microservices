@@ -1,0 +1,8 @@
+ghcr_login
+
+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
+
+
+GITHUB_ACCESS_TOKEN_ACTION_docker
+
+dckr_pat_j4ifGNKX56WE60F_YcXAGVbthBM
