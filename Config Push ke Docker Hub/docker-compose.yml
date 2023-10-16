@@ -1,0 +1,44 @@
+version: '3'
+
+# Mendefinisikan layanan yang akan dijalankan dalam komposisi
+services:
+  # Layanan pertama, "item-app" yang merupakan aplikasi
+  item-app:
+    container_name: item-app
+    # Image Docker yang digunakan untuk layanan "item-app"
+    image: inspirasiprogrammer/item-app:v1
+    # Layanan akan selalu direstart jika mati atau saat Docker daemon restart
+    restart: always
+    # Port mapping: Port 80 pada host diarahkan ke port 8080 dalam kontainer
+    ports:
+      - "80:8080"
+    # Bergantung pada layanan "item-db," sehingga item-db harus diluncurkan terlebih dahulu
+    depends_on:
+      - item-db
+    # Menghubungkan layanan ke jaringan "items-network"
+    networks:
+      - items-network
+
+  # Layanan kedua, "item-db" yang merupakan database MongoDB
+  item-db:
+    container_name: item-db
+    # Image Docker yang digunakan untuk layanan "item-db" (MongoDB versi 3)
+    image: mongo:3
+    # Layanan akan selalu direstart jika mati atau saat Docker daemon restart
+    restart: always
+    # Volume "app-db" digunakan untuk menyimpan data MongoDB
+    volumes:
+      - app-db:/data/db
+    # Menghubungkan layanan ke jaringan "items-network"
+    networks:
+      - items-network
+
+# Mendefinisikan volume yang akan digunakan dalam komposisi
+volumes:
+  app-db:
+
+# Mendefinisikan jaringan yang digunakan dalam komposisi
+networks:
+  items-network:
+    driver: bridge
+
