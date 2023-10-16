@@ -6,7 +6,6 @@ image_tag="v1"
 ghcr_username="inspirasiprogrammer"  # Ganti dengan nama pengguna GitHub Anda
 ghcr_repository="a433-microservices"  # Ganti dengan nama repository di GitHub Container Registry Anda
 
-
 # 1. Perintah untuk membuat Docker image dari Dockerfile
 docker build -t $image_name:$image_tag .
 # 2. Melihat daftar image di lokal
