@@ -30,7 +30,11 @@ jobs:
     - name: Log in to GitHub Packages
       run: echo "${{ secrets.GHCR_GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_GITHUB_USERNAME }} --password-stdin
 
-    # Langkah keempat: Push Docker Image ke GitHub Packages.
+    # Langkah keempat: Mengubah nama image agar sesuai dengan format Github Packages
+    - name: Tag Docker Image
+      run: docker tag ${{ secrets.GHCR_GITHUB_IMAGE }}:v1 ghcr.io/${{ secrets.GHCR_GITHUB_REPOSITORY }}/${{ secrets.GHCR_GITHUB_IMAGE }}:v1
+
+    # Langkah kelima: Push Docker Image ke GitHub Packages.
     - name: Push Docker Image to GitHub Packages
       run: |
         docker push ghcr.io/${{ secrets.GHCR_GITHUB_USERNAME }}/${{ secrets.GHCR_GITHUB_REPOSITORY }}/${{ secrets.GHCR_GITHUB_IMAGE }}:v1
