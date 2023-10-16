@@ -9,3 +9,8 @@ Repository ini digunakan untuk kebutuhan kelas Belajar Membangun Arsitektur Micr
 
 # Github Package Link
 `https://github.com/inspirasiprogrammer/a433-microservices/pkgs/container/a433-microservices%2Fitem-app/137900328?tag=v1`
+
+# Note
+`docker login ghcr.io -u inspirasiprogrammer -p GITHUB_TOKEN`
+`docker-compose up`
+
