@@ -5,8 +5,9 @@ services:
   # Layanan pertama, "item-app" yang merupakan aplikasi
   item-app:
     container_name: item-app
-    # Image Docker yang digunakan untuk layanan "item-app"
-    image: inspirasiprogrammer/item-app:v1
+    # Mengganti image ke yang akan digunakan di GitHub Container Registry
+    #image: ghcr.io/USERNAME/REPOSITORY/IMAGE_NAME:TAG
+    image: ghcr.io/inspirasiprogrammer/item-app/item-app:v1
     # Layanan akan selalu direstart jika mati atau saat Docker daemon restart
     restart: always
     # Port mapping: Port 80 pada host diarahkan ke port 8080 dalam kontainer
