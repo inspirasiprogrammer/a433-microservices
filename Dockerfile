@@ -1,21 +1,23 @@
-# Gunakan base image Node.js versi 14
+# Menggunakan base image Node.js versi 14 yang ringan
 FROM node:14
 
-# Set working directory di dalam container
+# Menetapkan direktori kerja saat ini dalam container ke /app
 WORKDIR /app
 
-# Menyalin seluruh source code ke working directory di container
-COPY . /app
+# Menyalin semua kode sumber aplikasi dari direktori host ke direktori kerja dalam container
+COPY . .
 
-# Menentukan mode produksi dan host database
+# Mengatur variabel lingkungan NODE_ENV ke "production" dan DB_HOST ke "item-db"
 ENV NODE_ENV=production
 ENV DB_HOST=item-db
 
-# Menginstal dependencies untuk production dan build aplikasi
+# Menginstal dependensi yang dibutuhkan untuk mode produksi
+# Flag --production hanya menginstal dependensi produksi
+# Flag --unsafe-perm digunakan untuk menghindari masalah izin saat menjalankan npm sebagai root
 RUN npm install --production --unsafe-perm && npm run build
 
 # Ekspos port 8080 yang digunakan oleh aplikasi
 EXPOSE 8080
 
-# Jalankan server saat container diluncurkan
+# Saat container dijalankan, menjalankan server dengan perintah npm start
 CMD ["npm", "start"]
