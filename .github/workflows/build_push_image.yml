@@ -17,21 +17,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # Langkah kedua: Build dan Push Docker Image.
-    - name: Build and Push Docker Image
-      run: |
-        # Mengubah izin skrip menjadi eksekusi (chmod +x).
-        chmod +x build_push_image.sh
-        # Menjalankan skrip build_push_image
-        ./build_push_image.sh
-      working-directory: ${{ github.workspace }}
-    
-    # Langkah ketiga: Log in ke GitHub Packages menggunakan GitHub Token.
+    # Langkah kedua: Log in to GitHub Packages menggunakan GitHub Token.
     - name: Log in to GitHub Packages
       run: echo "${{ secrets.GHCR_GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_GITHUB_USERNAME }} --password-stdin
 
+    # Langkah ketiga: Build Docker Image.
+    - name: Build Docker Image
+      run: |
+        docker build -t ghcr.io/${{ secrets.GHCR_GITHUB_USERNAME }}/${{ secrets.GHCR_GITHUB_REPOSITORY }}/${{ secrets.GHCR_GITHUB_IMAGE }}:v1 .
+      working-directory: ${{ github.workspace }}
+    
     # Langkah keempat: Push Docker Image ke GitHub Packages.
     - name: Push Docker Image to GitHub Packages
       run: |
         docker push ghcr.io/${{ secrets.GHCR_GITHUB_USERNAME }}/${{ secrets.GHCR_GITHUB_REPOSITORY }}/${{ secrets.GHCR_GITHUB_IMAGE }}:v1
-      working-directory: ${{ github.workspace }}
