@@ -24,3 +24,9 @@ Karsajobs read configuration from environment variable
   - `DELETE` delete job
 - /health
   - `GET` check app health status
+
+
+### Silakan clone dengan perintah berikut
+```
+git clone -b karsajobs https://github.com/dicodingacademy/a433-microservices.git karsajobs
+```
