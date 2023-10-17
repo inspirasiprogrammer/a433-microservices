@@ -23,3 +23,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### Silakan clone dengan perintah berikut
+```
+git clone -b karsajobs-ui https://github.com/dicodingacademy/a433-microservices.git karsajobs-ui
+```
