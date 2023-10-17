@@ -6,6 +6,9 @@ image_tag="latest"
 ghcr_username="inspirasiprogrammer"  # Ganti dengan nama pengguna GitHub Anda
 ghcr_repository="a433-microservices"  # Ganti dengan nama repository di GitHub Container Registry Anda
 
+#deklarasi nama image kedalam variabel
+image = $ghcr_username/$ghcr_repository/$image_name:$image_tag
+
 # 1. Perintah untuk membuat Docker image dari Dockerfile
 docker build -t $image_name:$image_tag .
 
@@ -13,7 +16,7 @@ docker build -t $image_name:$image_tag .
 docker images
 
 # 3. Mengubah nama image agar sesuai dengan format Github Packages
-docker tag $image_name:$image_tag ghcr.io/$ghcr_username/$ghcr_repository/$image_name:$image_tag .
+docker tag $image_name:$image_tag ghcr.io/$image .
 
 # 4. Login ke Github Packages
 # Menggunakan perintah 'echo' untuk mengambil nilai dari variabel GITHUB_TOKEN dan mengirimkannya sebagai masukan ke perintah 'docker login'.
@@ -22,7 +25,7 @@ docker tag $image_name:$image_tag ghcr.io/$ghcr_username/$ghcr_repository/$image
 echo $GITHUB_TOKEN | docker login ghcr.io -u $ghcr_username --password-stdin
 
 # 5. Mengunggah image ke GitHub Container Registry
-docker push ghcr.io/$ghcr_username/$ghcr_repository/$image_name:$image_tag
+docker push ghcr.io/$image
 
 # 6. Selesai
 echo "Docker image berhasil dibuat dan diunggah ke GitHub Container Registry."
