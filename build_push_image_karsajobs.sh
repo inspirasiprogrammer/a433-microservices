@@ -3,8 +3,8 @@
 # Nama image yang akan dibuat
 image_name="karsajobs"
 image_tag="latest"
-ghcr_username="inspirasiprogrammer"  # Ganti dengan nama pengguna GitHub Anda
-ghcr_repository="a433-microservices"  # Ganti dengan nama repository di GitHub Container Registry Anda
+ghcr_username="inspirasiprogrammer"  
+ghcr_repository="a433-microservices" 
 
 #deklarasi nama image kedalam variabel
 image = $ghcr_username/$ghcr_repository/$image_name:$image_tag
