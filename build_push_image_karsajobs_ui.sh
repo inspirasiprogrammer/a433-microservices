@@ -1,31 +1,20 @@
 #!/bin/bash
 
-# Nama image yang akan dibuat
-image_name="karsajobs-ui"
-image_tag="latest"
-ghcr_username="inspirasiprogrammer"  
-ghcr_repository="a433-microservices"  
+# Membangun Docker image dengan tag "irsya05/karsajobs-ui:latest" 
+docker build -t irsya05/karsajobs-ui:latest .
 
-#deklarasi nama image kedalam variabel
-image = $ghcr_username/$ghcr_repository/$image_name:$image_tag
-
-# 1. Perintah untuk membuat Docker image dari Dockerfile
-docker build -t $image_name:$image_tag .
-
-# 2. Melihat daftar image di lokal
+# Menampilkan daftar Docker images lokal
 docker images
 
-# 3. Mengubah nama image agar sesuai dengan format Github Packages
-docker tag $image_name:$image_tag ghcr.io/$image .
+# Menggunakan variabel PASSWORD_DOCKER_HUB untuk login ke Docker Hub
+# Password disediakan melalui variabel dan dibaca oleh docker login menggunakan stdin
+echo $PASSWORD_DOCKER_HUB | docker login -u irsya05 --password-stdin
 
-# 4. Login ke Github Packages
-# Menggunakan perintah 'echo' untuk mengambil nilai dari variabel GHCR_LOGIN dan mengirimkannya sebagai masukan ke perintah 'docker login'.
-# -u $ghcr_username digunakan untuk mengatur nama pengguna Github Packages dari variabel 'ghcr_username'.
-# --password-stdin menginstruksikan Docker untuk membaca kata sandi dari masukan standar (stdin).
-echo $GHCR_LOGIN | docker login ghcr.io -u $ghcr_username --password-stdin
+# Mengunggah Docker image yang telah dibangun secara lokal ke Docker Hub dengan tag "irsya05/karsajobs-ui:latest"
+docker push irsya05/karsajobs-ui:latest
 
-# 5. Mengunggah image ke GitHub Container Registry
-docker push ghcr.io/$image
+# Menampilkan pesan keberhasilan
+echo "Docker image berhasil dibuat dan diunggah ke Docker Hub"
 
-# 6. Selesai
-echo "Docker image berhasil dibuat dan diunggah ke GitHub Container Registry."
+# pause 
+read -p "Press Any key to Exit"
