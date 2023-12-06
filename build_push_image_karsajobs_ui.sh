@@ -19,10 +19,10 @@ docker images
 docker tag $image_name:$image_tag ghcr.io/$image .
 
 # 4. Login ke Github Packages
-# Menggunakan perintah 'echo' untuk mengambil nilai dari variabel GITHUB_TOKEN dan mengirimkannya sebagai masukan ke perintah 'docker login'.
+# Menggunakan perintah 'echo' untuk mengambil nilai dari variabel GHCR_LOGIN dan mengirimkannya sebagai masukan ke perintah 'docker login'.
 # -u $ghcr_username digunakan untuk mengatur nama pengguna Github Packages dari variabel 'ghcr_username'.
 # --password-stdin menginstruksikan Docker untuk membaca kata sandi dari masukan standar (stdin).
-echo $GITHUB_TOKEN | docker login ghcr.io -u $ghcr_username --password-stdin
+echo $GHCR_LOGIN | docker login ghcr.io -u $ghcr_username --password-stdin
 
 # 5. Mengunggah image ke GitHub Container Registry
 docker push ghcr.io/$image
