@@ -28,5 +28,5 @@ Karsajobs read configuration from environment variable
 
 ### Silakan clone dengan perintah berikut
 ```
-git clone -b karsajobs-docker-hub https://github.com/inspirasiprogrammer/a433-microservices.git karsajobs-docker-hub
+git clone -b karsajobs-github-package https://github.com/inspirasiprogrammer/a433-microservices.git karsajobs-github-package
 ```
