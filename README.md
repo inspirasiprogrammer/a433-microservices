@@ -27,5 +27,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Silakan clone dengan perintah berikut
 ```
-git clone -b karsajobs-ui-docker-hub https://github.com/inspirasiprogrammer/a433-microservices.git karsajobs-ui-docker-hub
+git clone -b karsajobs-ui-github-package https://github.com/inspirasiprogrammer/a433-microservices.git karsajobs-ui-github-package
 ```
