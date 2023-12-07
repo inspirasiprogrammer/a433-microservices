@@ -15,13 +15,15 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          chmod +x build_push_image.sh
-          ./build_push_image.sh
-        working-directory: ${{ github.workspace }}
+          # Add any additional setup steps here, if needed
 
-      - name: Log in to Docker Hub
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          # Build Docker Image
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest .
 
-      - name: Push Docker Image to Docker Hub
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest
+          # Log in to Docker Hub
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+          # Push Docker Image to Docker Hub
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest
+
         working-directory: ${{ github.workspace }}
