@@ -15,6 +15,3 @@ docker push irsya05/karsajobs-ui:latest
 
 # Menampilkan pesan keberhasilan
 echo "Docker image berhasil dibuat dan diunggah ke Docker Hub"
-
-# pause 
-read -p "Press Any key to Exit"
