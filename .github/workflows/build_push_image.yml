@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - karsajobs
+      - karsajobs-docker-hub
 jobs:
   build:
     runs-on: ubuntu-latest
