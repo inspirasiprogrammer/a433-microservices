@@ -28,10 +28,10 @@ jobs:
       - name: Build Docker Image
         run: |
           # Menjalankan perintah untuk membangun Docker image dengan tag sesuai nama pengguna Docker Hub.
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs-ui:latest .
         working-directory: ${{ github.workspace }}
 
       # Langkah keempat: Push Docker Image ke Docker Hub.
       - name: Push Docker Image to Docker Hub
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs-ui:latest
         working-directory: ${{ github.workspace }}
