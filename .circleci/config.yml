@@ -1,0 +1,35 @@
+version: 2.1
+orbs:
+  docker: circleci/docker@2.2.0
+
+jobs:
+  lint-dockerfile:
+    executor: docker/machine
+    steps:
+      - checkout
+      - docker/dockerlint:
+          dockerfile: ./Dockerfile
+          treat-warnings-as-errors: true
+  build-app-karsajobs-ui:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "Docker build"
+          command: "docker build -t karsajobs-ui:latest ."
+      - run:
+          name: "Docker rename"
+          command: "docker tag karsajobs-ui:latest inspirasiprogrammer/karsajobs-ui:latest"
+      - run:
+          name: "Docker login"
+          command: "echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin"
+      - run:
+          name: "Docker push"
+          command: "docker push inspirasiprogrammer/karsajobs-ui:latest"
+workflows:
+  karsajobs-ui-workflow:
+    jobs:
+      - lint-dockerfile
+      - build-app-karsajobs-ui
