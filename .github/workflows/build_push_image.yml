@@ -24,14 +24,25 @@ jobs:
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      # Langkah ketiga: Build Docker Image.
+      # Langkah ketiga: lint Dockerfile menggunakan hadolint.
+      - name: lint-dockerfile
+        run: |
+          # Install hadolint
+          sudo wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          sudo chmod +x /bin/hadolint
+
+          # Run hadolint
+          hadolint Dockerfile
+        working-directory: ${{ github.workspace }}
+
+      # Langkah keempat: Build Docker Image.
       - name: Build Docker Image
         run: |
           # Menjalankan perintah untuk membangun Docker image dengan tag sesuai nama pengguna Docker Hub.
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs-ui:latest .
         working-directory: ${{ github.workspace }}
 
-      # Langkah keempat: Push Docker Image ke Docker Hub.
+      # Langkah kelima: Push Docker Image ke Docker Hub.
       - name: Push Docker Image to Docker Hub
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs-ui:latest
         working-directory: ${{ github.workspace }}
