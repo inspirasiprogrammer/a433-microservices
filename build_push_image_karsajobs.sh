@@ -1,20 +1,16 @@
-#!/bin/bash
+#! /bin/bash
 
-# Membangun Docker image dengan tag "irsya05/karsajobs:latest" 
-docker build -t irsya05/karsajobs:latest .
+# build image with name karsajobs & tag latest
+docker build -t karsajobs:latest .
 
-# Menampilkan daftar Docker images lokal
-docker images
+# rename repository
+docker tag karsajobs:latest ghcr.io/inspirasiprogrammer/karsajobs:latest
 
-# Menggunakan variabel PASSWORD_DOCKER_HUB untuk login ke Docker Hub
-# Password disediakan melalui variabel dan dibaca oleh docker login menggunakan stdin
-echo $PASSWORD_DOCKER_HUB | docker login -u irsya05 --password-stdin
+# login github container registry
+echo $PASSWORD_GITHUB | docker login ghcr.io -u inspirasiprogrammer --password-stdin
 
-# Mengunggah Docker image yang telah dibangun secara lokal ke Docker Hub dengan tag "irsya05/karsajobs:latest"
-docker push irsya05/karsajobs:latest
-
-# Menampilkan pesan keberhasilan
-echo "Docker image berhasil dibuat dan diunggah ke Docker Hub"
+# push image to github container registry
+docker push ghcr.io/inspirasiprogrammer/karsajobs:latest
 
 # pause 
 read -p "Press Any key to Exit"
