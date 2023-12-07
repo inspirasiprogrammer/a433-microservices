@@ -1,0 +1,4 @@
+https://hub.docker.com/r/irsya05/karsajobs
+https://hub.docker.com/r/irsya05/karsajobs-ui
+https://github.com/users/inspirasiprogrammer/packages/container/package/karsajobs
+https://github.com/users/inspirasiprogrammer/packages/container/package/karsajobs-ui

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+
+# Metadata terkait ConfigMap, seperti nama.
+metadata:
+  # Nama dari ConfigMap, disebut "mongo-config".
+  name: mongo-config
+
+# Data yang akan disimpan dalam ConfigMap.
+data:
+  # File konfigurasi untuk MongoDB, disebut "mongo.conf".
+  mongo.conf: |
+    storage:
+      dbPath: /data/db

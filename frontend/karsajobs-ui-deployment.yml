@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+
+# Metadata terkait Deployment, seperti nama dan label.
+metadata:
+  # Nama dari deployment karsajobs-ui.
+  name: karsajobs-ui
+  labels:
+    # Label untuk mengidentifikasi aplikasi sebagai karsajobs-ui dan tier sebagai frontend.
+    app: karsajobs-ui
+    tier: frontend
+
+# Spesifikasi untuk Deployment.
+spec:
+  # Jumlah replika (pod) yang akan dibuat oleh Deployment.
+  replicas: 1
+
+  # Selektor untuk memilih pod yang akan dikelola oleh Deployment.
+  selector:
+    matchLabels:
+      # Memilih pod dengan label tier: frontend.
+      tier: frontend
+
+  # Template untuk pod yang akan dibuat oleh Deployment.
+  template:
+    metadata:
+      labels:
+        # Label untuk pod, sesuai dengan label selektor Deployment.
+        app: karsajobs-ui
+        tier: frontend
+
+    # Spesifikasi untuk pod.
+    spec:
+      # Kontainer yang akan dijalankan dalam pod.
+      containers:
+        # Nama kontainer: karsajobs-ui.
+        - name: karsajobs-ui
+
+          # Image Docker yang akan digunakan oleh kontainer, diambil dari Docker Hub.
+          image: ghcr.io/inspirasiprogrammer/karsajobs-ui:latest
+          imagePullPolicy: Always
+
+          # Port yang akan diexpose oleh kontainer.
+          ports:
+            - containerPort: 8000
+          env:
+            - name: VUE_APP_BACKEND
+              value: "http://192.168.49.2:30080"

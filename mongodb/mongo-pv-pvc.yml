@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: PersistentVolume
+
+# Metadata terkait PersistentVolume, seperti nama.
+metadata:
+  # Nama dari PersistentVolume, disebut "mongo-pv-volume".
+  name: mongo-pv-volume
+
+# Spesifikasi untuk PersistentVolume.
+spec:
+  # Kapasitas penyimpanan yang dialokasikan untuk PersistentVolume.
+  capacity:
+    # Menetapkan kapasitas penyimpanan sebesar 20 Gigabyte.
+    storage: 20Gi
+  # Mode akses untuk PersistentVolume.
+  accessModes:
+    # Hanya satu node dapat membaca dan menulis pada waktu yang bersamaan (ReadWriteOnce).
+    - ReadWriteOnce
+  # Penyimpanan berbasis file sistem lokal pada node (hostPath).
+  hostPath:
+    # Path di node tempat data PersistentVolume akan disimpan.
+    path: /mnt/data
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+
+# Metadata terkait PersistentVolumeClaim, seperti nama.
+metadata:
+  # Nama dari PersistentVolumeClaim, disebut "mongo-pv-claim".
+  name: mongo-pv-claim
+
+# Spesifikasi untuk PersistentVolumeClaim.
+spec:
+  # Mode akses untuk PersistentVolumeClaim.
+  accessModes:
+    # Hanya satu node dapat membaca dan menulis pada waktu yang bersamaan (ReadWriteOnce).
+    - ReadWriteOnce
+  # Sumber daya yang diminta oleh PersistentVolumeClaim.
+  resources:
+    requests:
+      # Menetapkan permintaan penyimpanan sebesar 20 Gigabyte.
+      storage: 20Gi
