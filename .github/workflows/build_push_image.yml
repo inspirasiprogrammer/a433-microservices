@@ -1,35 +1,37 @@
+# Nama tindakan: Build and Push Docker Image
 name: Build and Push Docker Image
 
-# Event trigger: Akan dijalankan saat ada push ke branch karsajobs-docker-hub
+# Tindakan ini akan dijalankan ketika ada push ke repositori pada cabang tertentu.
 on:
   push:
     branches:
       - karsajobs-docker-hub
 
-# Job untuk melakukan build dan push Docker image
+# Job yang akan dijalankan pada runner Ubuntu terbaru. Anda dapat mengganti runner sesuai kebutuhan.
 jobs:
+  # Job bernama 'build'
   build:
+    # Menjalankan job pada sistem operasi Ubuntu terbaru.
     runs-on: ubuntu-latest
 
+    # Langkah-langkah yang akan dijalankan dalam job ini.
     steps:
-      # Langkah pertama: Checkout kode dari repositori
+      # Langkah pertama: Checkout kode dari repositori.
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Langkah kedua: Menjalankan skrip build_push_image_karsajobs.sh
-      - name: Build and Push Docker Image
-        run: |
-          # Mengubah izin skrip menjadi eksekusi
-          chmod +x build_push_image_karsajobs.sh
-          # Menjalankan skrip build_push_image_karsajobs.sh
-          ./build_push_image_karsajobs.sh
-        working-directory: ${{ github.workspace }}
-
-      # Langkah ketiga: Login ke Docker Hub menggunakan informasi rahasia
+      # Langkah kedua: Log in to Docker Hub menggunakan informasi rahasia.
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      # Langkah keempat: Melakukan push Docker image ke Docker Hub
+      # Langkah ketiga: Build Docker Image.
+      - name: Build Docker Image
+        run: |
+          # Menjalankan perintah untuk membangun Docker image dengan tag sesuai nama pengguna Docker Hub.
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest .
+        working-directory: ${{ github.workspace }}
+
+      # Langkah keempat: Push Docker Image ke Docker Hub.
       - name: Push Docker Image to Docker Hub
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest
         working-directory: ${{ github.workspace }}
