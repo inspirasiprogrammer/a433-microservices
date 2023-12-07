@@ -1,6 +1,6 @@
 name: Build and Push Docker Image
 
-# Event trigger: akan dijalankan saat ada push ke branch karsajobs-docker-hub
+# Event trigger: Akan dijalankan saat ada push ke branch karsajobs-docker-hub
 on:
   push:
     branches:
@@ -13,7 +13,7 @@ jobs:
 
     steps:
       # Langkah pertama: Checkout kode dari repositori
-      - name: Checkout kode
+      - name: Checkout code
         uses: actions/checkout@v2
 
       # Langkah kedua: Menjalankan skrip build_push_image_karsajobs.sh
@@ -27,7 +27,7 @@ jobs:
 
       # Langkah ketiga: Login ke Docker Hub menggunakan informasi rahasia
       - name: Log in to Docker Hub
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       # Langkah keempat: Melakukan push Docker image ke Docker Hub
       - name: Push Docker Image to Docker Hub
