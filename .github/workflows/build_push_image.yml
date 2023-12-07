@@ -1,35 +1,28 @@
-# Nama tindakan: Build and Push Docker Image
 name: Build and Push Docker Image
 
-# Tindakan ini akan dijalankan ketika ada push ke repositori pada cabang tertentu.
 on:
   push:
     branches:
       - karsajobs-docker-hub
 
-# Job yang akan dijalankan pada runner Ubuntu terbaru. Anda dapat mengganti runner sesuai kebutuhan.
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Langkah pertama: Checkout kode dari repositori.
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Langkah kedua: Build dan Push Docker Image.
+      - name: Set up Docker Buildx (Optional)
+        uses: docker/setup-buildx-action@v1
+
       - name: Build and Push Docker Image
-        run: |
-          # Mengubah izin skrip menjadi eksekusi (chmod +x).
-          chmod +x build_push_image.sh
-          # Menjalankan skrip build_push_image
-          ./build_push_image.sh
+        run: docker buildx build -t ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest . --push
         working-directory: ${{ github.workspace }}
 
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Docker Image to Docker Hub
-        run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/karsajobs:latest
         working-directory: ${{ github.workspace }}
