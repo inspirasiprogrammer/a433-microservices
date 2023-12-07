@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+
+# Metadata terkait Service, seperti nama.
+metadata:
+  # Nama dari layanan MongoDB, disebut "mongo".
+  name: mongo
+
+# Spesifikasi untuk Service.
+spec:
+  # Port yang akan diexpose oleh Service.
+  ports:
+    # Port di dalam kontainer MongoDB.
+    - port: 27017
+      protocol: TCP
+
+  # Selektor untuk memilih pod yang akan dilayani oleh Service.
+  selector:
+    # Memilih pod dengan label "app: mongo" (asumsi penggunaan dengan StatefulSet).
+    app: mongo
+
+  # Layanan headless, dengan clusterIP: None, artinya tidak ada IP Cluster yang diberikan.
+  clusterIP: None

@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+# Mencegah data direset ketika direstart
+kind: StatefulSet
+
+# Metadata terkait StatefulSet, seperti nama dan label.
+metadata:
+  # Nama dari StatefulSet MongoDB, disebut "mongo".
+  name: mongo
+  labels:
+    # Label untuk mengidentifikasi aplikasi sebagai "mongo".
+    app: mongo
+
+# Spesifikasi untuk StatefulSet.
+spec:
+  # Selektor untuk memilih pod yang akan dikelola oleh StatefulSet.
+  selector:
+    matchLabels:
+      # Memilih pod dengan label "app: mongo" dan "tier: data".
+      app: mongo
+      tier: data
+
+  # Nama layanan yang akan digunakan oleh StatefulSet.
+  serviceName: mongo
+
+  # Jumlah replika (pod) yang akan dibuat oleh StatefulSet.
+  replicas: 1
+
+  # Jumlah waktu yang diizinkan untuk pod menjadi siap (ready).
+  minReadySeconds: 10
+
+  # Template untuk pod yang akan dibuat oleh StatefulSet.
+  template:
+    metadata:
+      labels:
+        # Label untuk pod, sesuai dengan label selektor StatefulSet.
+        app: mongo
+        tier: data
+
+    # Spesifikasi untuk pod.
+    spec:
+      # Jumlah waktu yang diizinkan untuk proses terminasi pod.
+      terminationGracePeriodSeconds: 10
+
+      # Kontainer yang akan dijalankan dalam pod.
+      containers:
+        # Nama kontainer: mongo.
+        - image: mongo:4.4.3 # Image Docker untuk kontainer, diambil dari Docker Hub.
+          name: mongo
+
+          # Variabel lingkungan untuk inisialisasi MongoDB (username dan password).
+          env:
+            # Nama pengguna MongoDB (dari file) di dalam kontainer.
+            - name: MONGO_INITDB_ROOT_USERNAME_FILE
+              value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
+            # Kata sandi MongoDB (dari file) di dalam kontainer.
+            - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+              value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
+
+          # Port yang akan diexpose oleh kontainer.
+          ports:
+            - containerPort: 27017 # Port MongoDB.
+
+          # Pengaitan volume untuk montase penyimpanan persisten, ConfigMap, dan Secret.
+          volumeMounts:
+            # Mounting persistent storage.
+            - name: mongo-persistent-storage
+              mountPath: /data/db
+            # Mounting ConfigMap.
+            - name: config
+              mountPath: /config
+            # Mounting Secret.
+            - name: secret
+              mountPath: /etc/mongo-credentials
+
+      # Volume untuk menyimpan data persisten, ConfigMap, dan Secret.
+      volumes:
+        # Persistent storage volume.
+        - name: mongo-persistent-storage
+          persistentVolumeClaim:
+            # Dari PersistentVolumeClaim yang telah dibuat sebelumnya.
+            claimName: mongo-pv-claim
+        # ConfigMap volume.
+        - name: config
+          configMap:
+            # Dari ConfigMap yang telah dibuat sebelumnya.
+            name: mongo-config
+            items:
+              - key: mongo.conf
+                path: mongo.conf
+        # Secret volume.
+        - name: secret
+          secret:
+            # Dari Secret yang telah dibuat sebelumnya.
+            secretName: mongo-secret

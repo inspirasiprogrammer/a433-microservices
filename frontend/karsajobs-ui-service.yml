@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+
+# Metadata terkait Service, seperti nama dan label.
+metadata:
+  # Nama dari layanan karsajobs-ui.
+  name: karsajobs-ui
+  labels:
+    # Label untuk mengidentifikasi layanan sebagai frontend.
+    name: frontend
+
+# Spesifikasi untuk Service.
+spec:
+  # Jenis layanan, dalam hal ini adalah NodePort.
+  type: NodePort
+
+  # Port yang akan diexpose oleh Service.
+  ports:
+    # Port di dalam kontainer karsajobs-ui.
+    - port: 8000
+
+  # Selektor untuk memilih pod yang akan dilayani oleh Service.
+  selector:
+    # Memilih pod dengan label app: karsajobs-ui.
+    app: karsajobs-ui

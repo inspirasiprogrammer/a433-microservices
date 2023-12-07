@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+
+# Metadata terkait Deployment, seperti nama dan label.
+metadata:
+  # Nama dari deployment karsajobs.
+  name: karsajobs
+  labels:
+    # Label untuk mengidentifikasi aplikasi sebagai karsajobs dan tier sebagai backend.
+    app: karsajobs
+    tier: backend
+
+# Spesifikasi untuk Deployment.
+spec:
+  # Jumlah replika (pod) yang akan dibuat oleh Deployment.
+  replicas: 1
+
+  # Selektor untuk memilih pod yang akan dikelola oleh Deployment.
+  selector:
+    matchLabels:
+      # Memilih pod dengan label tier: backend.
+      tier: backend
+
+  # Template untuk pod yang akan dibuat oleh Deployment.
+  template:
+    metadata:
+      labels:
+        # Label untuk pod, sesuai dengan label selektor Deployment.
+        app: karsajobs
+        tier: backend
+
+    # Spesifikasi untuk pod.
+    spec:
+      # Kontainer yang akan dijalankan dalam pod.
+      containers:
+        # Nama kontainer: karsajobs.
+        - name: karsajobs
+
+          # Image Docker yang akan digunakan oleh kontainer, diambil dari Docker Hub.
+          image: irsya05/karsajobs:latest
+
+          imagePullPolicy: Always
+
+          # Port yang akan diexpose oleh kontainer.
+          ports:
+            - containerPort: 8080
+
+          # Variabel lingkungan yang akan diset dalam kontainer.
+          env:
+            # Variabel lingkungan untuk menentukan port aplikasi.
+            - name: APP_PORT
+              value: "8080"
+
+            # Variabel lingkungan untuk menentukan nama host layanan MongoDB.
+            - name: MONGO_HOST
+              value: mongo
+
+            # Variabel lingkungan untuk menentukan username MongoDB dari secret.
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_ROOT_USERNAME
+
+            # Variabel lingkungan untuk menentukan password MongoDB dari secret.
+            - name: MONGO_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_ROOT_PASSWORD
