@@ -1,28 +1,28 @@
 version: 2.1
-
-orbs:
-  docker: circleci/docker@2.2.0
-
 jobs:
-  build-app-order:
-    executor: docker/docker
-    environment:
-      IMAGE_NAME: ghcr.io/inspirasiprogrammer/order
+  build:
+    docker:
+      - image: docker:20.10.10
+
     steps:
       - checkout
-      - setup_remote_docker
+
       - run:
           name: Build Docker Image
-          command: docker build -t $IMAGE_NAME:latest .
-      - run:
-          name: Publish Docker Image to GitHub Container Registry
           command: |
-            echo "$GITHUB_PASSWORD" | docker login ghcr.io -u "$GITHUB_USERNAME" --password-stdin
-            docker push $IMAGE_NAME:latest
+            docker build -t order:latest .
 
-workflows:
-  ci:
-    jobs:
-      - build-app-order:
-          requires:
-            - docker/hadolint
+      - run:
+          name: Tag Docker Image
+          command: |
+            docker tag order:latest ghcr.io/inspirasiprogrammer/order:latest
+
+      - run:
+          name: Login to GitHub Container Registry
+          command: |
+            echo $PASSWORD_GITHUB | docker login ghcr.io -u inspirasiprogrammer --password-stdin
+
+      - run:
+          name: Push Image to GitHub Container Registry
+          command: |
+            docker push ghcr.io/inspirasiprogrammer/order:latest
