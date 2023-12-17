@@ -1,0 +1,49 @@
+# Gunakan versi API 1
+apiVersion: apps/v1
+# Objek Deployment
+kind: Deployment
+# Atur metadata deployment
+metadata:
+  # Nama deployment
+  name: shipping
+  # Daftar label deployment
+  labels:
+    # Label dengan kunci app & nilai shipping
+    app: shipping
+    # Label dengan kunci tier & nilai consumer
+    tier: consumer
+spec:
+  # Jumlah replika pod : 1
+  replicas: 1
+  # Selektor pod
+  selector:
+    matchLabels:
+      # Label dengan kunci tier & nilai consumer
+      tier: consumer
+  template:
+    # Metadata pod
+    metadata:
+      # Daftar label pod
+      labels:
+        # Label dengan kunci app & nilai shipping
+        app: shipping
+        # Label dengan kunci tier & nilai consumer
+        tier: consumer
+    spec:
+      # Daftar container pod
+      containers:
+        # Nama container
+        - name: shipping
+          # Tarik gambar dari registry kontainer GitHub shipping
+          image: ghcr.io/inspirasiprogrammer/shipping:latest
+          # Daftar port kontainer
+          ports:
+            # Atur port kontainer 3001
+            - containerPort: 3001
+          env:
+            # Atur port dengan nilai 3001
+            - name: PORT
+              value: "3001"
+            # Atur host RabbitMQ dari layanan rabbitmq beserta nama pengguna & kata sandi
+            - name: AMQP_URL
+              value: amqp://user:mA7yX1j6FOQ6xKZu@rabbitmq:5672

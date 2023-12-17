@@ -1,0 +1,55 @@
+# Gunakan versi API 1
+apiVersion: apps/v1
+# Objek Deployment
+kind: Deployment
+# Atur metadata deployment
+metadata:
+  # Nama deployment
+  name: order
+  # Daftar label deployment
+  labels:
+    # Label dengan kunci app & nilai order
+    app: order
+    # Label dengan kunci tier & nilai producer
+    tier: producer
+spec:
+  # Jumlah replika pod: 1
+  replicas: 1
+  # Selektor pod
+  selector:
+    matchLabels:
+      # Label dengan kunci tier & nilai producer
+      tier: producer
+  template:
+    # Metadata pod
+    metadata:
+      # Daftar label pod
+      labels:
+        # Label dengan kunci app & nilai order
+        app: order
+        # Label dengan kunci tier & nilai producer
+        tier: producer
+    spec:
+      # Nama akun layanan
+      serviceAccountName: order
+      # Daftar container pod
+      containers:
+        # Nama container
+        - name: order
+          # Tarik gambar dari registry kontainer GitHub order
+          image: ghcr.io/inspirasiprogrammer/order:latest
+          # Daftar port container
+          ports:
+            # Atur port kontainer 3000
+            - containerPort: 3000
+          env:
+            # Atur port dengan nilai 3000
+            - name: PORT
+              value: "3000"
+            # Atur host RabbitMQ dari layanan rabbitmq beserta nama pengguna & kata sandi
+            - name: AMQP_URL
+              value: amqp://user:mA7yX1j6FOQ6xKZu@rabbitmq:5672
+          # Konfigurasi keamanan
+          securityContext:
+            # ID pengguna
+            runAsUser: 1000

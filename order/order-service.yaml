@@ -1,0 +1,41 @@
+# Gunakan versi API 1
+apiVersion: v1
+# Objek Service
+kind: Service
+# Atur metadata service
+metadata:
+  # Nama service
+  name: order
+  # Daftar label service
+  labels:
+    # Label dengan kunci app & nilai producer
+    app: producer
+    # Label dengan kunci service & nilai order
+    service: order
+# Atur spesifikasi service
+spec:
+  # Tipe service
+  type: NodePort
+  # Daftar port
+  ports:
+    # Port dari kontainer pod
+    - port: 3000
+      # Tipe protokol
+      name: http
+  # Selektor pod
+  selector:
+    # Label pod
+    app: order
+---
+# Gunakan versi API 1
+apiVersion: v1
+# Objek ServiceAccount
+kind: ServiceAccount
+# Atur metadata ServiceAccount
+metadata:
+  # Nama ServiceAccount
+  name: order
+  # Daftar label
+  labels:
+    # Label dengan kunci account & nilai order
+    account: order

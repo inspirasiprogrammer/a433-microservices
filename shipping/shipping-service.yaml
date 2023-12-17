@@ -1,0 +1,22 @@
+# Gunakan versi API 1
+apiVersion: v1
+# Objek Service
+kind: Service
+# Atur metadata service
+metadata:
+  # Nama service
+  name: shipping
+  # Daftar label service
+  labels:
+    # Label dengan kunci app & nilai consumer
+    app: consumer
+# Atur spesifikasi service
+spec:
+  # Daftar port
+  ports:
+    # Port dari kontainer pod
+    - port: 3001
+  # Selektor pod
+  selector:
+    # Label pod
+    app: shipping
