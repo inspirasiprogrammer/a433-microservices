@@ -22,17 +22,17 @@ jobs:
 
       # Langkah kedua: Log in to GitHub Packages menggunakan GitHub Token.
       - name: Log in to GitHub Packages
-        run: echo "${{ secrets.GHCR_GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_GITHUB_USERNAME }} --password-stdin
+        run: echo "${{ secrets.GHCR_GITHUB_TOKEN }}" | docker login ghcr.io -u inspirasiprogrammer --password-stdin
 
       # Langkah ketiga: Build Docker Image.
       - name: Build Docker Image
         run: |
           # Menjalankan perintah untuk membangun Docker image dengan tag sesuai dengan repository dan branch.
-          docker build -t ghcr.io/${{ secrets.GHCR_GITHUB_USERNAME }}/shipping:latest .
+          docker build -t ghcr.io/inspirasiprogrammer/shipping:latest .
         working-directory: ${{ github.workspace }}
 
       # Langkah keempat: Push Docker Image ke GitHub Packages.
       - name: Push Docker Image to GitHub Packages
         run: |
           # Melakukan push Docker image ke GitHub Packages dengan tag sesuai dengan repository dan branch.
-          docker push ghcr.io/${{ secrets.GHCR_GITHUB_USERNAME }}/shipping:latest
+          docker push ghcr.io/inspirasiprogrammer/shipping:latest
