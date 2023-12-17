@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@2.2.0
+
 jobs:
   build-app-shipping:
     executor: docker/docker
@@ -16,3 +19,10 @@ jobs:
           command: |
             echo "$GITHUB_PASSWORD" | docker login ghcr.io -u "$GITHUB_USERNAME" --password-stdin
             docker push $IMAGE_NAME:latest
+
+workflows:
+  ci:
+    jobs:
+      - build-app-shipping:
+          requires:
+            - docker/hadolint
