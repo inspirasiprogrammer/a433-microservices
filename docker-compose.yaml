@@ -1,0 +1,65 @@
+version: "3.7"
+
+services:
+
+  # Layanan Order
+  order:
+
+    # Gunakan image dari ghcr.io/inspirasiprogrammer/order:latest
+    image: ghcr.io/inspirasiprogrammer/order:latest
+
+    # Setel kebijakan restart untuk selalu menjalankan ulang kontainer
+    restart: always
+
+    # Menerapkan port 3000 kontainer ke port 3000 host
+    ports:
+      - 3000:3000
+
+    # Setel variabel lingkungan untuk kontainer order
+    environment:
+      # Setel variabel lingkungan untuk port aplikasi
+      PORT: 3000
+      # Setel variabel lingkungan untuk host rabbit
+      AMQP_URL: amqp://rabbitmq:5672
+    
+    # Menunggu layanan rabbitmq sebelum memulai layanan order
+    depends_on:
+      - rabbitmq
+
+  # Layanan Shipping
+  shipping:
+
+    # Gunakan image dari ghcr.io/inspirasiprogrammer/shipping:latest
+    image: ghcr.io/inspirasiprogrammer/shipping:latest
+
+    # Setel kebijakan restart untuk selalu menjalankan ulang kontainer
+    restart: always
+
+    # Menerapkan port 3001 kontainer ke port 3001 host
+    ports:
+      - 3001:3001
+
+    # Setel variabel lingkungan untuk kontainer shipping
+    environment:
+      # Setel variabel lingkungan untuk port aplikasi
+      PORT: 3001
+      # Setel variabel lingkungan untuk host rabbit
+      AMQP_URL: amqp://rabbitmq:5672
+    
+    # Menunggu layanan rabbitmq sebelum memulai layanan shipping
+    depends_on:
+      - rabbitmq
+
+  # Layanan RabbitMQ
+  rabbitmq:
+
+    # Gunakan image rabbitmq:3.11-management
+    image: rabbitmq:3.11-management
+
+    # Setel kebijakan restart untuk selalu menjalankan ulang kontainer
+    restart: always
+
+    # Menerapkan port 5672 kontainer ke port 5672 host dan port 15672 kontainer ke port 15672 host
+    ports:
+      - 5672:5672
+      - 15672:15672
