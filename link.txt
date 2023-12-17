@@ -1,0 +1,3 @@
+https://github.com/users/inspirasiprogrammer/packages/container/package/order-service
+https://github.com/users/inspirasiprogrammer/packages/container/package/shipping-service
+https://github.com/inspirasiprogrammer?tab=packages
